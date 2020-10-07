@@ -29,6 +29,21 @@
             @csrf
             <input type="submit">POST</input>
         </form>
+        <form action="/vivify" method="POST">
+            @method('PUT')
+            @csrf
+            <input type="submit">PUT</input>
+        </form>
+        <form action="/vivify" method="POST">
+            @method('PATCH')
+            @csrf
+            <input type="submit">PATCH</input>
+        </form>
+        <form action="/vivify" method="POST">
+            @method('DELETE')
+            @csrf
+            <input type="submit">DELETE</input>
+        </form>
 
 
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">

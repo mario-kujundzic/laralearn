@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,28 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/vivify/{first_name?}', function ($first_name = 'Roger') {
-    return view('vivify', ['first_name' => $first_name]);
-})->name('vivifyGet');
+Route::get('/vivify/{first_name?}', [HomeController::class, 'vivifyGet'])->name('vivifyGet');
 
-Route::post('/vivify', function () {
-    echo "<h1>You are POST-ing to Vivify!</h1>";
-})->name('vivifyPost');
+Route::post('/vivify', [HomeController::class, 'vivifyPost'])->name('vivifyPost');
 
-Route::put('/vivify', function () {
-    echo "<h1>You are PUT-ing to Vivify!</h1>";
-})->name('vivifyPut');
+Route::put('/vivify', [HomeController::class, 'vivifyPut'])->name('vivifyPut');
 
-Route::patch('/vivify', function () {
-    echo "<h1>You are PATCH-ing to Vivify!</h1>";
-})->name('vivifyPatch');
+Route::patch('/vivify', [HomeController::class, 'vivifyPatch'])->name('vivifyPatch');
 
-Route::delete('/vivify', function () {
-    echo "<h1>You are DELETE-ing to Vivify!</h1>";
-})->name('vivifyDelete');
+Route::delete('/vivify', [HomeController::class, 'vivifyDelete'])->name('vivifyDelete');
 
 
