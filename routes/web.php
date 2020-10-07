@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/vivify', function () {
     echo "<h1>You are GET-ing to Vivify!</h1>";
-})->name('vivifyGet');
+})->name('vivifyGet')->middleware(['age']);
 
 Route::post('/vivify', function () {
     echo "<h1>You are POST-ing to Vivify!</h1>";
