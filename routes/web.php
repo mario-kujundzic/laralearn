@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/vivify', function () {
-    echo "<h1>You are GET-ing to Vivify!</h1>";
-})->name('vivifyGet')->middleware(['age']);
+Route::get('/vivify/{first_name?}', function ($first_name = 'Roger') {
+    return view('vivify', ['first_name' => $first_name]);
+})->name('vivifyGet');
 
 Route::post('/vivify', function () {
     echo "<h1>You are POST-ing to Vivify!</h1>";
