@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,5 @@ Route::patch('/vivify', [HomeController::class, 'vivifyPatch'])->name('vivifyPat
 Route::delete('/vivify', [HomeController::class, 'vivifyDelete'])->name('vivifyDelete');
 
 Route::resource('users', UserController::class);
+
+Route::resource('posts', PostController::class);
