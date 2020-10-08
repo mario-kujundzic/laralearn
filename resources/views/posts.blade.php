@@ -29,7 +29,8 @@
         <br/>
         <h3>Add new post</h3>
         <br/>
-        <form method="post" action="/posts">
+        <form method="POST" action="/posts">
+            @csrf
             Title:&nbsp; &nbsp; <input type="text" name="title" />
             <br/>
             Content: <input type="text" name="content" />
@@ -55,20 +56,24 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->content}}</td>
                 <td>{{$post->user_id}}</td>
-                <td>{{$post->created_at}}</td>
+                <td>{{$post->created_at->diffForHumans()}}</td>
                 <td>
                     <form method="GET" action={{'/posts/' . $post->id}}>
                         <input type="submit" value="View" />
                     </form>
                 </td>
                 <td>
-                    <form method="POST" action={{'/posts/' . $post->id . '/edit'}}>
+                    <form method="POST" action={{'/posts/' . $post->id}}>
+                        @csrf
                         @method('PUT')
+                        <input type="text" name="title" placeholder="Title" />
+                        <input type="text" name="content" placeholder="Content" />
                         <input type="submit" value="Edit" />
                     </form>
                 </td>
                 <td>
-                    <form method="GET" action={{'/posts/' . $post->id}}>
+                    <form method="POST" action={{'/posts/' . $post->id}}>
+                        @csrf
                         @method('DELETE')
                         <input type="submit" value="Delete" />
                     </form>

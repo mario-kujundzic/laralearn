@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
 {
@@ -39,7 +42,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array (
+            'title' => 'required',
+            'content' => 'required',
+            'user_id' => 'required|numeric'
+        );
+        $validator = $this->getValidationFactory()->make($request->all(), $rules);
+        if ($validator->fails()) {
+            return Redirect::to('/posts')
+                ->withErrors($validator);
+        } else {
+            $post = new Post;
+            $post->title = $request->get('title');
+            $post->content = $request->get('content');
+            $post->user_id = $request->get('user_id');
+            $post->save();
+            return Redirect::to('/posts');
+        }
     }
 
     /**
@@ -51,7 +70,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::all()->find($id);
-        return $post;
+        return view('post_show', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -62,7 +83,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -74,7 +95,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array (
+            'title' => 'required',
+            'content' => 'required'
+        );
+        $validator = $this->getValidationFactory()->make($request->all(), $rules);
+        if ($validator->fails()) {
+            error_log('failed');
+            return Redirect::to('/posts')
+                ->withErrors($validator);
+        } else {
+            error_log('ok');
+            $post = Post::all()->find($id);
+            $post->title = $request->get('title');
+            $post->content = $request->get('content');
+            $post->save();
+            return Redirect::to('/posts');
+        }
     }
 
     /**
@@ -85,6 +122,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::all()->find($id);
+        $post->delete();
+        return Redirect::to('/posts');
     }
 }
