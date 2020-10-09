@@ -19,7 +19,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'company',
-        'country',
+        'country_id',
         'email',
         'password',
     ];
@@ -45,5 +45,9 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasMany('App\Models\Post');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\Models\Country');
     }
 }

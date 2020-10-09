@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company');
-            $table->string('country');
+            $table->foreignId('country_id');
             $table->rememberToken();
             $table->timestamps();
         });
