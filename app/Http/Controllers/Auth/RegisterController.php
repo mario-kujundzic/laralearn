@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Webpatser\Countries\Countries;
 
 class RegisterController extends Controller
 {
@@ -70,4 +71,13 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    protected function showRegistrationForm()
+    {
+        $countries = Countries::all();
+        return view('auth.register', [
+            'countries' => $countries
+        ]);
+    }
+
 }
