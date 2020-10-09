@@ -28,6 +28,9 @@
         <p>
             {{$post->content}}
         </p>
+        <p>
+            {{$post->user}}
+        </p>
 
         <h3>
             <a href="/posts">Return to all posts </a>
