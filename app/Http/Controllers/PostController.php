@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -40,25 +41,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        $rules = array (
-            'title' => 'required',
-            'content' => 'required',
-            'user_id' => 'required|numeric'
-        );
-        $validator = $this->getValidationFactory()->make($request->all(), $rules);
-        if ($validator->fails()) {
-            return Redirect::to('/posts')
-                ->withErrors($validator);
-        } else {
-            $post = new Post;
-            $post->title = $request->get('title');
-            $post->content = $request->get('content');
-            $post->user_id = $request->get('user_id');
-            $post->save();
-            return Redirect::to('/posts');
-        }
+        $validated = $request->validated();
+        
+        $post = Post::create($validated);;
+        
+        $post->save();
+        return Redirect::to('/posts');
     }
 
     /**
