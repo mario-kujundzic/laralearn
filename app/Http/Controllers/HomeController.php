@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['vivify', 'exception']);
     }
 
     /**
@@ -25,4 +26,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function exception()
+    {
+        throw new CustomException('Error!', 405);
+    }
+
+    public function vivify()
+    {
+        echo "Hello from Vivify";    
+    }
+
 }

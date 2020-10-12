@@ -19,15 +19,9 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/vivify/{first_name?}', [HomeController::class, 'vivifyGet'])->name('vivifyGet');
+Route::get('/vivify', [HomeController::class, 'vivify'])->name('vivify');
 
-Route::post('/vivify', [HomeController::class, 'vivifyPost'])->name('vivifyPost');
-
-Route::put('/vivify', [HomeController::class, 'vivifyPut'])->name('vivifyPut');
-
-Route::patch('/vivify', [HomeController::class, 'vivifyPatch'])->name('vivifyPatch');
-
-Route::delete('/vivify', [HomeController::class, 'vivifyDelete'])->name('vivifyDelete');
+Route::get('/exception', [HomeController::class, 'exception'])->name('exception');
 
 Route::resource('users', UserController::class);
 

@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use ParseError;
 
 class Handler extends ExceptionHandler
 {
@@ -12,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        ParseError::class
     ];
 
     /**
@@ -32,6 +33,9 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        /*
+        $this->renderable(function (CustomException $e, $request) {
+            return response()->json(['foo' => 'bar']);
+        });*/
     }
 }
