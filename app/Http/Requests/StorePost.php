@@ -25,8 +25,7 @@ class StorePost extends FormRequest
     {
         return [
             'title' => 'required',
-            'content' => 'required',
-            'user_id' => 'bail|required|numeric|exists:users,id'
+            'content' => 'required'
         ];
     }
 }

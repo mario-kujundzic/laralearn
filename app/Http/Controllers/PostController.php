@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Validator;
 use Symfony\Component\Console\Input\Input;
@@ -44,11 +46,12 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $validated = $request->validated();
-        
-        $post = Post::create($validated);;
-        
+        error_log(Auth::user()->id);
+        $post = Post::create($validated + ['user_id' => Auth::user()->id]);;
+        $post->user_id = Auth::user()->id;
         $post->save();
-        return Redirect::to('/posts');
+        //return Redirect::to('/posts');
+        return response()->json('Created successfully!');
     }
 
     /**
@@ -89,18 +92,17 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required'
         );
+        $post = Post::all()->find($id);
+        $this->authorize('update', $post);
         $validator = $this->getValidationFactory()->make($request->all(), $rules);
         if ($validator->fails()) {
-            error_log('failed');
-            return Redirect::to('/posts')
-                ->withErrors($validator);
+            return response()->json('Validation failed');
         } else {
-            error_log('ok');
-            $post = Post::all()->find($id);
             $post->title = $request->get('title');
             $post->content = $request->get('content');
             $post->save();
-            return Redirect::to('/posts');
+            //return Redirect::to('/posts');
+            return response()->json('Updated successfully!');
         }
     }
 
@@ -113,7 +115,10 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::all()->find($id);
+        $this->authorize('delete', $post);
         $post->delete();
-        return Redirect::to('/posts');
+        //return Redirect::to('/posts');
+        return response()->json('Deleted successfully!');
+
     }
 }

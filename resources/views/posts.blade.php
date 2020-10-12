@@ -35,8 +35,6 @@
             <br/>
             Content: <input type="text" name="content" />
             <br/>
-            User id:<input type="text" name="user_id" />
-            <br/>
             <input type="submit" value="Add new post" />
         </form>
         <br/>
@@ -63,6 +61,7 @@
                     </form>
                 </td>
                 <td>
+                    @can('update', $post)
                     <form method="POST" action={{'/posts/' . $post->id}}>
                         @csrf
                         @method('PUT')
@@ -70,13 +69,16 @@
                         <input type="text" name="content" placeholder="Content" />
                         <input type="submit" value="Edit" />
                     </form>
+                    @endcan
                 </td>
                 <td>
+                    @can('delete', $post)
                     <form method="POST" action={{'/posts/' . $post->id}}>
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="Delete" />
                     </form>
+                    @endcan
                 </td>
             </tr>
 
